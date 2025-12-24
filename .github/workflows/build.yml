@@ -1,31 +1,36 @@
-name: Build Margherita
-on: [push] # Runs every time you upload code
+name: Build Margherita Browser
+on: [push] # The robot starts when you push code
 
 jobs:
   release:
     strategy:
       matrix:
-        os: [windows-latest, macos-latest] # Build for PC and Mac
+        # Build for Windows and macOS simultaneously
+        os: [windows-latest, macos-latest]
+    
     runs-on: ${{ matrix.os }}
     
     steps:
       - name: Checkout Code
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4 # Updated to v4
 
-      - name: Setup Node
-        uses: actions/setup-node@v3
+      - name: Install Node.js
+        uses: actions/setup-node@v4 # Updated to v4
         with:
-          node-version: 18
+          node-version: 20 # Modern Node version for 2025
 
-      - name: Install and Build
-        run: |
-          npm install
-          npm run build
+      - name: Install Dependencies
+        run: npm install
+
+      - name: Build App
+        run: npm run build
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # Needed to save the files
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Upload Finished App
-        uses: actions/upload-artifact@v3
+      - name: Upload Build Artifacts
+        uses: actions/upload-artifact@v4 # FIXED: Updated from v3 to v4
         with:
-          name: ${{ matrix.os }}-app
-          path: dist/ # This saves the .exe or .dmg for you
+          name: ${{ matrix.os }}-installer
+          path: |
+            dist/*.exe
+            dist/*.dmg
