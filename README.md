@@ -69,4 +69,4 @@ If you want to contribute to the code or run it locally:
 
 This project was built to rethink the standard browser UI. By moving the tab management to a vertical, collapsible sidebar and focusing on native gesture support, Margherita offers a unique way to consume content.
 
-**Created by [Your Name/Handle]**
+**Created by [SAAR RAVINDRA SINGH/saarcasm]**
