@@ -1,0 +1,31 @@
+name: Build Margherita
+on: [push] # Runs every time you upload code
+
+jobs:
+  release:
+    strategy:
+      matrix:
+        os: [windows-latest, macos-latest] # Build for PC and Mac
+    runs-on: ${{ matrix.os }}
+    
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v3
+
+      - name: Setup Node
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18
+
+      - name: Install and Build
+        run: |
+          npm install
+          npm run build
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # Needed to save the files
+
+      - name: Upload Finished App
+        uses: actions/upload-artifact@v3
+        with:
+          name: ${{ matrix.os }}-app
+          path: dist/ # This saves the .exe or .dmg for you
