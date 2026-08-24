@@ -39,7 +39,7 @@ function createTab() {
   webview.src = 'src/home.html';
   webview.style.width = '100%'; webview.style.height = '100%';
   webview.setAttribute('partition', 'persist:main');
-  webview.setAttribute('preload', './preload.js');
+  webview.setAttribute('preload', './src/preload.js');
   webview.useragent = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36";
 
   refreshBtn.onclick = (e) => { e.stopPropagation(); webview.reload(); };
